@@ -1,0 +1,19 @@
+{
+  "name": "sist02.ce",
+  "version": "0.0.0",
+  "description": "sist02 for Chrome Extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makky3939/sist02.ce.git"
+  },
+  "author": "makky3939",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/makky3939/sist02.ce/issues"
+  },
+  "homepage": "https://github.com/makky3939/sist02.ce"
+}
