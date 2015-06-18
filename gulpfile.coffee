@@ -8,6 +8,9 @@ defaultTasks = ['copy', 'jade', 'coffee']
 
 gulp.task 'watch', ->
   gulp.watch 'src/jade/**', ['jade']
+  gulp.watch 'src/coffee/**', ['coffee']
+  gulp.watch 'src/json/**', ['copy.json']
+  gulp.watch 'src/image/**', ['copy.image']
 
 gulp.task 'build', ->
   runSequence 'clean', defaultTasks
