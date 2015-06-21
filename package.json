@@ -26,9 +26,11 @@
     "gulp-concat": "^2.5.2",
     "gulp-jade": "^1.0.1",
     "gulp-plumber": "^1.0.1",
+    "gulp-stylus": "^2.0.5",
     "jade": "^1.11.0",
     "require-dir": "^0.3.0",
     "rimraf": "^2.4.0",
-    "run-sequence": "^1.1.1"
+    "run-sequence": "^1.1.1",
+    "stylus": "^0.51.1"
   }
 }

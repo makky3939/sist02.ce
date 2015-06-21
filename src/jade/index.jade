@@ -1,7 +1,15 @@
 html
   head
-    script(src='js/app.js')
+    meta(charset='UTF-8')
+    script(src='js/app.js' charset='UTF-8')
+    link(href='css/style.css' rel='stylesheet')
+
   body
-    h2 sist02
-    hr
-    input#naid(type='text' disabled)
+    label
+      |Reference (sist02)
+    textarea#reference(type='text' rows='6' autofocus)
+    p.footer
+      |&copy; sist02.ce.
+      span.footer__link
+        a(href='https://github.com/makky3939/sist02.ce' target='_blank') About me
+      span
