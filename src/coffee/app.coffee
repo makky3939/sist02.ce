@@ -6,7 +6,8 @@ class Sist02
       @reference = {}
 
     article_reference: (naid) ->
-      _fetch(naid).then (response) ->
+      url = "http://ci.nii.ac.jp/naid/#{naid}.json"
+      _fetch(url).then (response) ->
         @reference = _basic_information response
 
         @reference['volume'] = response['prism:volume'] || ''
@@ -28,8 +29,44 @@ class Sist02
       , (error) ->
         false
 
-    _fetch = (naid) ->
+    book_reference: (ncid) ->
+      url = "http://ci.nii.ac.jp/ncid/#{ncid}.json"
+      _fetch(url).then (response) ->
+        @reference = _basic_information response
+
+        @reference['edition'] = response['prism:edition']
+        @reference['publisher'] = response['dc:publisher'][0]
+
+        # page
+        result = [
+          "#{@reference['authors']}."
+          "#{@reference['title']}."
+          "#{@reference['edition']},"
+          "#{@reference['publisher']},"
+          "#{@reference['year']}."
+        ]
+
+        result.join ' '
+      , (error) ->
+        false
+
+    dissertation_reference: (naid) ->
       url = "http://ci.nii.ac.jp/naid/#{naid}.json"
+      _fetch(url).then (response) ->
+        @reference = _basic_information response
+
+        result = [
+          "#{@reference['authors']}."
+          "#{@reference['title']}."
+          "#{@reference['publisher']}."
+          "#{@reference['year']},"
+          "博士論文."
+        ]
+        result.join ' '
+      , (error) ->
+        false
+
+    _fetch = (url) ->
       new Promise (resolve, reject) ->
         request = new XMLHttpRequest()
         request.open 'GET', url
@@ -68,13 +105,29 @@ chrome.tabs.getSelected null, (tab) ->
   sist02 = new Sist02
   url = new URL tab.url
 
-  naid = url.pathname.replace /\/naid\//, ''
+  switch true
+    when tab.title.indexOf('CiNii Article') > -1
+      naid = url.pathname.replace /\/naid\//, ''
+      sist02.cinii().article_reference(naid).then (result) ->
+        if result
+          document.getElementById('reference').value = result
+        else
+          console.log result
 
-  sist02.cinii().article_reference(naid).then (result) ->
-    if result
-      # document.getElementById('naid').value = naid
-      document.getElementById('reference').value = result
-    else
-      console.log result
+    when tab.title.indexOf('CiNii Books') > -1
+      ncid = url.pathname.replace /\/ncid\//, ''
+      sist02.cinii().book_reference(ncid).then (result) ->
+        if result
+          document.getElementById('reference').value = result
+        else
+          console.log result
+
+    when tab.title.indexOf('CiNii Dissertations') > -1
+      naid = url.pathname.replace /\/naid\//, ''
+      sist02.cinii().dissertation_reference(naid).then (result) ->
+        if result
+          document.getElementById('reference').value = result
+        else
+          console.log result
 
   return
