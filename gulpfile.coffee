@@ -4,13 +4,14 @@ runSequence = require 'run-sequence'
 
 dir = requireDir './gulp_tasks'
 
-defaultTasks = ['copy', 'jade', 'coffee']
+defaultTasks = ['copy', 'jade', 'coffee', 'stylus']
 
 gulp.task 'watch', ->
   gulp.watch 'src/jade/**', ['jade']
   gulp.watch 'src/coffee/**', ['coffee']
   gulp.watch 'src/json/**', ['copy.json']
   gulp.watch 'src/image/**', ['copy.image']
+  gulp.watch 'src/sass/**', ['stylus']
 
 gulp.task 'build', ->
   runSequence 'clean', defaultTasks
