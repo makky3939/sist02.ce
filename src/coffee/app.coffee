@@ -104,9 +104,10 @@ class Sist02
 chrome.tabs.getSelected null, (tab) ->
   sist02 = new Sist02
   url = new URL tab.url
+  title = tab.title
 
   switch true
-    when tab.title.indexOf('CiNii Article') > -1
+    when title.indexOf('CiNii Article') > -1, title.indexOf('CiNii 論文') > -1
       naid = url.pathname.replace /\/naid\//, ''
       sist02.cinii().article_reference(naid).then (result) ->
         if result
@@ -114,7 +115,7 @@ chrome.tabs.getSelected null, (tab) ->
         else
           console.log result
 
-    when tab.title.indexOf('CiNii Books') > -1
+    when title.indexOf('CiNii Books') > -1, title.indexOf('CiNii 図書') > -1
       ncid = url.pathname.replace /\/ncid\//, ''
       sist02.cinii().book_reference(ncid).then (result) ->
         if result
@@ -122,7 +123,7 @@ chrome.tabs.getSelected null, (tab) ->
         else
           console.log result
 
-    when tab.title.indexOf('CiNii Dissertations') > -1
+    when title.indexOf('CiNii Dissertations')>-1,title.indexOf('CiNii 博士論文')>-1
       naid = url.pathname.replace /\/naid\//, ''
       sist02.cinii().dissertation_reference(naid).then (result) ->
         if result

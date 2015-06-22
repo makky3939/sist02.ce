@@ -1,2 +1,5 @@
 node_modules
 dst
+dst.zip
+*.pem
+*.crx
