@@ -108,7 +108,9 @@ chrome.tabs.getSelected null, (tab) ->
 
   switch true
     when title.indexOf('CiNii Article') > -1, title.indexOf('CiNii 論文') > -1
-      naid = url.pathname.replace /\/naid\//, ''
+      path = url.pathname.replace /\/naid\//, ''
+      path = path.replace /\/en\//, ''
+      naid = path.replace /\/ja\//, ''
       sist02.cinii().article_reference(naid).then (result) ->
         if result
           document.getElementById('reference').value = result
@@ -116,7 +118,9 @@ chrome.tabs.getSelected null, (tab) ->
           console.log result
 
     when title.indexOf('CiNii Books') > -1, title.indexOf('CiNii 図書') > -1
-      ncid = url.pathname.replace /\/ncid\//, ''
+      path = url.pathname.replace /\/ncid\//, ''
+      path = path.replace /\/en\//, ''
+      ncid = path.replace /\/ja\//, ''
       sist02.cinii().book_reference(ncid).then (result) ->
         if result
           document.getElementById('reference').value = result
@@ -124,7 +128,9 @@ chrome.tabs.getSelected null, (tab) ->
           console.log result
 
     when title.indexOf('CiNii Dissertations')>-1,title.indexOf('CiNii 博士論文')>-1
-      naid = url.pathname.replace /\/naid\//, ''
+      path = url.pathname.replace /\/naid\//, ''
+      path = path.replace /\/en\//, ''
+      naid = path.replace /\/ja\//, ''
       sist02.cinii().dissertation_reference(naid).then (result) ->
         if result
           document.getElementById('reference').value = result
