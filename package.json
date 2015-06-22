@@ -1,6 +1,6 @@
 {
   "name": "sist02.ce",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "sist02 for Chrome Extension",
   "main": "index.js",
   "scripts": {
